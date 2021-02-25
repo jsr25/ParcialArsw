@@ -16,7 +16,17 @@ public class Result {
     private String testString;
     private boolean result;
     private double testSpecifity;
+
+    private int veces;
     //</editor-fold>
+
+    public int getVeces() {
+        return veces;
+    }
+
+    public void setVeces(int veces) {
+        this.veces = veces;
+    }
 
     public Result(JSONObject json){
         this.id= (UUID) json.get("id");
@@ -28,6 +38,7 @@ public class Result {
         result = (boolean) json.get("result");
         testSpecifity = (double) json.get("testSpecifity");
         testString = (String) json.get("testDate");
+        veces=1;
 
 
     }

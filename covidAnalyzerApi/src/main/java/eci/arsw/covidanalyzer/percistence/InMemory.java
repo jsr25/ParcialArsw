@@ -21,4 +21,11 @@ public class InMemory {
         return map;
     }
 
+    public void update(UUID id){
+        if(map.containsKey(id)){
+            Result res =map.get(id);
+            res.setVeces(res.getVeces()+1);
+        }
+    }
+
 }

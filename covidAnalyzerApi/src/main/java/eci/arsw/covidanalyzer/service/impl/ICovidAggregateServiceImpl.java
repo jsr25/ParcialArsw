@@ -66,7 +66,10 @@ public class ICovidAggregateServiceImpl implements ICovidAggregateService {
     }
 
     @Override
-    public void upsertPersonWithMultipleTests(UUID id, ResultType type) {
-
+    public void upsertPersonWithMultipleTests(UUID id) {
+        truePositive.update(id);
+        falsePositive.update(id);
+        trueNegative.update(id);
+        falseNegative.update(id);
     }
 }

@@ -12,13 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class CovidAggregateController {
@@ -124,10 +122,9 @@ public class CovidAggregateController {
 
 
     @RequestMapping(value = "/covid/result/persona/{id}", method = RequestMethod.PUT)
-    public ResponseEntity savePersonaWithMultipleTests(@RequestBody String json) {
-        JSONObject jsonObject = new JSONObject(json);
-        Result result =new Result(jsonObject);
-        covidAggregateService.upsertPersonWithMultipleTests(result.getId(),result);
+    public ResponseEntity savePersonaWithMultipleTests(@PathVariable String id) {
+        UUID idp = UUID.fromString(id);
+        covidAggregateService.upsertPersonWithMultipleTests(idp);
         return null;
     }
     

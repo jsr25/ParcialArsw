@@ -1,9 +1,7 @@
 package eci.arsw.covidanalyzer;
 
 import java.util.UUID;
-
 public class Result {
-
     //<editor-fold desc="properties">
     private UUID id;
     private String firstName;

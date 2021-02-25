@@ -22,6 +22,13 @@ public class Result {
         this.id= (UUID) json.get("id");
         firstName = (String) json.get("firstName");
         lastName = (String) json.get("lastName");
+        gender = (String) json.get("gender");
+        email = (String) json.get("email");
+        birthString = (String) json.get("birthDate");
+        result = (boolean) json.get("result");
+        testSpecifity = (double) json.get("testSpecifity");
+        testString = (String) json.get("testDate");
+
 
     }
     //<editor-fold desc="getters">

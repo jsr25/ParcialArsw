@@ -1,5 +1,7 @@
 package eci.arsw.covidanalyzer;
 
+import eci.arsw.covidanalyzer.thread.LectorThread;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,6 +24,7 @@ public class CovidAnalyzerTool {
     private TestReader testReader;
     private int amountOfFilesTotal;
     private AtomicInteger amountOfFilesProcessed;
+    private List<LectorThread> lectores= new ArrayList<LectorThread>();
 
     public CovidAnalyzerTool() {
         resultAnalyzer = new ResultAnalyzer();
@@ -29,17 +32,23 @@ public class CovidAnalyzerTool {
         amountOfFilesProcessed = new AtomicInteger();
     }
 
-    public void processResultData() {
+    public void processResultData(int hilos) {
         amountOfFilesProcessed.set(0);
         List<File> resultFiles = getResultFileList();
         amountOfFilesTotal = resultFiles.size();
-        for (File resultFile : resultFiles) {
-            List<Result> results = testReader.readResultsFromFile(resultFile);
-            for (Result result : results) {
-                resultAnalyzer.addResult(result);
-            }
-            amountOfFilesProcessed.incrementAndGet();
+        int temp = 0;
+        int temp2=0;
+        for(int i=0;i<hilos;i++){
+            temp2+=resultFiles.size()/hilos;
+            LectorThread hilo = new LectorThread("hilo"+i,resultFiles,temp,temp2);
+            lectores.add(hilo);
+            temp =temp2+1;
+    }
+        for(LectorThread lec: lectores){
+            lec.run();
         }
+
+
     }
 
     private List<File> getResultFileList() {
@@ -62,7 +71,7 @@ public class CovidAnalyzerTool {
      */
     public static void main(String... args) throws Exception {
         CovidAnalyzerTool covidAnalyzerTool = new CovidAnalyzerTool();
-        Thread processingThread = new Thread(() -> covidAnalyzerTool.processResultData());
+        Thread processingThread = new Thread(() -> covidAnalyzerTool.processResultData(5));
         processingThread.start();
         while (true) {
             Scanner scanner = new Scanner(System.in);

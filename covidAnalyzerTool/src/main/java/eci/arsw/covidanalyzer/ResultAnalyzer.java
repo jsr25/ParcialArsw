@@ -7,14 +7,11 @@ import java.util.Set;
 import java.util.UUID;
 
 public class ResultAnalyzer {
-
     public static final double MIN_TEST_SPECIFY = 0.90;
     private Set<Result> positivePeople;
-
     public ResultAnalyzer() {
         positivePeople = new HashSet<>();
     }
-
     public synchronized void addResult(Result result) {
         if (result.isResult()) {
             if (result.getTestSpecifity() > MIN_TEST_SPECIFY) {
@@ -31,9 +28,7 @@ public class ResultAnalyzer {
             }
         }
     }
-
     public Set<Result> listOfPositivePeople() {
         return positivePeople;
     }
-
 }

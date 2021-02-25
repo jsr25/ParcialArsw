@@ -16,13 +16,9 @@ import java.util.*;
  * NOT MODIFY THIS CLASS.
  */
 public class TestReader {
-
     public static final int THREAD_DELAY = 100;
-
     public TestReader() {
-
     }
-
     public List<Result> readResultsFromFile(File ResultFile) {
         ArrayList<Result> Results = new ArrayList<>();
         TimeZone tz = TimeZone.getTimeZone("UTC");

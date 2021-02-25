@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -42,25 +44,25 @@ public class ICovidAggregateServiceImpl implements ICovidAggregateService {
     }
 
     @Override
-    public boolean getResult(ResultType type) {
-        boolean correct=false;
+    public Collection<Result> getResult(ResultType type) {
+        Collection<Result> colect = null;
         if(type == ResultType.TRUE_POSITIVE){
-            truePositive.getAll();
-            correct=true;
+            colect = truePositive.getAll().values();
+
         }
         else if(type == ResultType.TRUE_NEGATIVE){
-            falsePositive.getAll();
-            correct=true;
+             colect = falsePositive.getAll().values();
+
         }
         else if(type == ResultType.FALSE_POSITIVE){
-            trueNegative.getAll();
-            correct=true;
+             colect = trueNegative.getAll().values();
+
         }
         else {
-            falseNegative.getAll();
-            correct=true;
+             colect = falseNegative.getAll().values();
+
         }
-        return correct;
+        return colect;
     }
 
     @Override
